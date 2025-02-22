@@ -17,6 +17,10 @@
 @cor-secundaria: #666666;    // Cor secundária para textos menos importantes
 @cor-fundo: #ffffff;         // Cor de fundo dos elementos
 @cor-erro: #ff0000;         // Cor para mensagens de erro
+@cor-navbar: rgba(255, 255, 255, 0.85);  // Cor da barra de navegação com efeito acrílico
+@cor-link: #333333;         // Cor dos links na navbar
+@cor-link-hover: #000000;   // Cor dos links ao passar o mouse
+@cor-link-active: #000000;  // Cor dos links ativos
 
 /* Sistema de espaçamento */
 @espacamento-base: 16px;                    // Espaçamento base do sistema
@@ -45,6 +49,12 @@
 @mobile: 768px;    // Ponto de quebra para dispositivos móveis
 @tablet: 1024px;   // Ponto de quebra para tablets
 @desktop: 1025px;  // Ponto de quebra para desktop
+
+/* Dimensões da navbar */
+@altura-navbar: 64px;
+@altura-navbar-mobile: 56px;
+@padding-navbar: calc(@altura-navbar * 0.1);
+@padding-navbar-mobile: calc(@altura-navbar-mobile * 0.1);
 
 /* Mixins utilitários */
 // Adiciona sombra suave aos cartões

@@ -29,6 +29,11 @@ html, body {
 body {
     background-color: lighten(@cor-fundo, 2%);
     min-height: 100vh;
+    padding-top: calc(@altura-navbar + @padding-navbar);
+
+    @media (max-width: @mobile) {
+        padding-top: calc(@altura-navbar-mobile + @padding-navbar-mobile);
+    }
 }
 
 /* Configurações de tipografia para diferentes elementos */

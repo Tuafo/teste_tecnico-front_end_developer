@@ -7,7 +7,8 @@
   - Gerenciar estados de carregamento e erro
   
   Funcionalidades:
-  - Gera 12 produtos com dados aleatórios
+  - Gera X produtos com dados aleatórios, a quantidade é definida em categorias na função gerarProdutos.
+  - As imagens são pegas da pasta 'images' a categoria é o nome da pasta.
   - Adapta o layout para diferentes tamanhos de tela:
     * Desktop: 3 colunas
     * Tablet: 2 colunas
@@ -39,34 +40,55 @@ const formatarPreco = (valor) => {
 const gerarProdutos = () => {
     try {
         isLoading.value = true
-        const produtos = Array.from({ length: 12 }, (_, index) => {
-            // Calcula o número da camiseta de forma cíclica (1 a 4)
-            const produtoNumero = (index % 4) + 1
-            
-            // Gera um preço aleatório entre 29,90 e 99,90
-            const preco = faker.number.float({ 
-                min: 29.90, 
-                max: 99.90, 
-                precision: 0.01 
-            })
-            
-            // Gera o array com os caminhos das 4 imagens de cada camiseta
-            const imagens = Array.from({ length: 4 }, (_, i) => {
-                const numeroImagem = i + 1
-                return `/images/camiseta${produtoNumero}/${numeroImagem}.avif`
-            })
-            
-            // Retorna o objeto do produto com todos os dados necessários
-            return {
-                id: faker.string.uuid(),
-                titulo: 'Camiseta ' + faker.commerce.productAdjective(),
-                descricao: faker.lorem.paragraph(),
-                preco: formatarPreco(preco),
-                imagemPrincipal: imagens[0],
-                imagens: imagens
+        
+        // Define todas as categorias e suas quantidades
+        const categorias = [
+            { nome: 'camiseta', quantidade: 4 },
+            { nome: 'bermuda', quantidade: 3 },
+            { nome: 'bolsa', quantidade: 2 },
+            { nome: 'pochete', quantidade: 2 },
+            { nome: 'moletom', quantidade: 1 }
+        ]
+
+        // Gera um array com todos os produtos possíveis
+        const produtos = []
+        
+        categorias.forEach(categoria => {
+            for (let i = 1; i <= categoria.quantidade; i++) {
+                // Gera um preço aleatório entre 29,90 e 99,90
+                const preco = faker.number.float({ 
+                    min: 29.90, 
+                    max: 99.90, 
+                    precision: 0.01 
+                })
+                
+                // Gera o array com os caminhos das 4 imagens do produto
+                const imagens = Array.from({ length: 4 }, (_, j) => {
+                    const numeroImagem = j + 1
+                    return `/images/${categoria.nome}${i}/${numeroImagem}.avif`
+                })
+                
+                // Gera o título baseado na categoria
+                const adjetivo = faker.commerce.productAdjective()
+                const titulo = categoria.nome === 'camiseta' ? `Camiseta ${adjetivo}` :
+                             categoria.nome === 'bermuda' ? `Bermuda ${adjetivo}` :
+                             categoria.nome === 'bolsa' ? `Bolsa ${adjetivo}` :
+                             `Pochete ${adjetivo}`
+
+                // Adiciona o produto ao array
+                produtos.push({
+                    id: faker.string.uuid(),
+                    titulo,
+                    descricao: faker.lorem.paragraph(),
+                    preco: formatarPreco(preco),
+                    imagemPrincipal: imagens[0],
+                    imagens
+                })
             }
         })
-        return produtos
+
+        // Embaralha o array de produtos para exibição aleatória
+        return faker.helpers.shuffle(produtos)
     } catch (e) {
         error.value = 'Erro ao carregar produtos'
         console.error('Erro ao gerar produtos:', e)
@@ -117,6 +139,12 @@ onMounted(() => {
     gap: @espacamento-duplo;
     padding: @espacamento-duplo max(1.8vw, @espacamento-base);
     margin: 0 auto;
+
+    @media (max-width: 1550px) {
+        grid-template-columns: repeat(2, @largura-card);
+        gap: @espacamento-duplo;
+        padding: @espacamento-base max(1.8vw, @espacamento-base * 1.5);
+    }
 
     @media (max-width: @mobile) {
         grid-template-columns: repeat(2, @largura-card-mobile);

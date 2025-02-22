@@ -4,10 +4,11 @@
   Componente raiz da aplicação.
   Este é o ponto de entrada principal do aplicativo, que:
   - Define a estrutura básica da página
-  - Importa e utiliza o componente GridProdutos
+  - Gerencia o roteamento principal
   - Aplica os estilos globais
   
   Estrutura:
+  - Navbar: Barra de navegação superior com logo e links
   - Header: Título do catálogo
   - Main: Container do grid de produtos
   
@@ -18,18 +19,17 @@
 -->
 
 <script setup>
-  import GridProdutos from './components/LayoutResponsivo/GridProdutos.vue'
+import Navbar from './components/Base/Navbar.vue'
 </script>
 
 <template>
+  <Navbar />
   <div class="container">
-    <header>
-      <h1>Catálogo de Camisetas</h1>
-    </header>
-
-    <main>
-      <GridProdutos />
-    </main>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -38,9 +38,13 @@
 @import './assets/styles/main.less';
 
 .container {
-  max-width: 1600px;
+  max-width: @largura-maxima;
   margin: 0 auto;
   padding: 0 @espacamento-base;
+
+  @media (max-width: @mobile) {
+    margin-top: 76px;
+  }
 }
 
 body {
@@ -68,5 +72,16 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+/* Animação de transição entre rotas */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
