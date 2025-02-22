@@ -1,0 +1,128 @@
+/**
+ * Arquivo de estilos responsivos
+ * 
+ * Este arquivo contém os mixins e classes responsivas do projeto.
+ * Aqui definimos como os elementos se comportam em diferentes
+ * tamanhos de tela (mobile, tablet e desktop).
+ */
+
+@import './variaveis.less';
+
+/* Pontos de quebra para diferentes dispositivos */
+@mobile: 768px;    // Smartphones e dispositivos pequenos
+@tablet: 1024px;   // Tablets e dispositivos médios
+@desktop: 1025px;  // Desktops e telas grandes
+
+/* Mixins para ajustes responsivos */
+
+// Ajusta o grid para diferentes tamanhos de tela
+.responsivo-grid() {
+    @media (max-width: @mobile) {
+        grid-template-columns: 1fr;
+        gap: @espacamento-base;
+        padding: @espacamento-base;
+    }
+
+    @media (min-width: @mobile) and (max-width: @tablet) {
+        grid-template-columns: repeat(2, @largura-card);
+        gap: @espacamento-duplo;
+    }
+
+    @media (min-width: @desktop) {
+        grid-template-columns: repeat(3, @largura-card);
+        gap: @espacamento-duplo;
+    }
+}
+
+// Ajusta o card para diferentes tamanhos de tela
+.responsivo-card() {
+    @media (max-width: @tablet) {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+// Ajusta a imagem para diferentes tamanhos de tela
+.responsivo-imagem() {
+    @media (max-width: @tablet) {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 550/824;
+    }
+}
+
+// Ajusta o conteúdo para diferentes tamanhos de tela
+.responsivo-conteudo() {
+    @media (max-width: @tablet) {
+        width: 100%;
+        height: auto;
+        min-height: 250px;
+        padding: @espacamento-base @espacamento-base * 1.25 @espacamento-base * 1.25;
+    }
+}
+
+// Ajusta os textos para diferentes tamanhos de tela
+.responsivo-texto() {
+    @media (max-width: @tablet) {
+        h3 {
+            font-size: 1.1em;
+            margin-bottom: @espacamento-metade;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .preco {
+            font-size: 1.2em;
+            padding-top: @espacamento-metade;
+        }
+    }
+}
+
+/* Grid de produtos responsivo */
+.grid-produtos {
+    display: grid;
+    gap: @espacamento-base;
+    padding: @espacamento-base;
+    width: 100%;
+    margin: 0 auto;
+
+    // Layout para mobile
+    @media (max-width: @mobile) {
+        grid-template-columns: 1fr;
+        gap: @espacamento-base * 1.5;
+    }
+
+    // Layout para tablet
+    @media (min-width: @mobile) and (max-width: @tablet) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: @espacamento-base * 2;
+    }
+
+    // Layout para desktop
+    @media (min-width: @desktop) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: @espacamento-base * 2;
+    }
+}
+
+/* Ajustes do card de produto para mobile */
+.card-produto {
+    @media (max-width: @mobile) {
+        .conteudo {
+            h3 {
+                font-size: 1.2em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .preco {
+                font-size: 1.4em;
+            }
+        }
+    }
+}

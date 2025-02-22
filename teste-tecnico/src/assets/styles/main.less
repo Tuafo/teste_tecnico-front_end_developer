@@ -1,0 +1,75 @@
+/**
+ * Arquivo principal de estilos
+ * 
+ * Este arquivo contém as configurações globais de estilo do projeto.
+ * Aqui definimos os estilos base que serão aplicados em toda a aplicação,
+ * como reset de CSS, tipografia e estilos gerais do corpo da página.
+ */
+
+@import './variaveis.less';
+@import './responsivo.less';
+
+/* Reset básico para garantir consistência entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Configurações básicas do HTML e corpo da página */
+html, body {
+    font-family: @fonte-principal;
+    font-size: 16px;
+    line-height: 1.5;
+    color: @cor-primaria;
+}
+
+body {
+    background-color: lighten(@cor-fundo, 2%);
+    min-height: 100vh;
+}
+
+/* Configurações de tipografia para diferentes elementos */
+h1, h2, h3, h4, h5, h6 {
+    font-family: @fonte-principal;
+    font-weight: 600;
+}
+
+p, span, a, button, input, textarea {
+    font-family: @fonte-principal;
+    font-weight: 400;
+}
+
+strong, b {
+    font-family: @fonte-principal;
+    font-weight: 700;
+}
+
+/* Melhorias de acessibilidade */
+:focus {
+    outline: 2px solid @cor-primaria;
+    outline-offset: 2px;
+}
+
+/* Animações globais */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Classes utilitárias */
+.container {
+    .container-padrao();
+}
+
+.card-produto {
+    animation: fadeIn 0.3s ease-in-out;
+}

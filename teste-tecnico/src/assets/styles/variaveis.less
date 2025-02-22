@@ -1,0 +1,114 @@
+/**
+ * Arquivo de variáveis globais
+ * 
+ * Este arquivo contém todas as variáveis LESS usadas no projeto.
+ * Aqui centralizamos cores, tamanhos, espaçamentos e outras configurações
+ * para manter consistência em todo o design.
+ */
+
+// Importação da fonte principal do Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+/* Definição da fonte principal */
+@fonte-principal: 'Noto Sans', sans-serif;
+
+/* Paleta de cores do projeto */
+@cor-primaria: #333333;      // Cor principal para textos
+@cor-secundaria: #666666;    // Cor secundária para textos menos importantes
+@cor-fundo: #ffffff;         // Cor de fundo dos elementos
+@cor-erro: #ff0000;         // Cor para mensagens de erro
+
+/* Sistema de espaçamento */
+@espacamento-base: 16px;                    // Espaçamento base do sistema
+@espacamento-duplo: @espacamento-base * 2;  // Espaçamento duplo para margens maiores
+@espacamento-metade: @espacamento-base / 2; // Meio espaçamento para ajustes finos
+
+/* Dimensões dos componentes */
+@raio-borda: 4px;           // Arredondamento padrão de bordas
+@largura-maxima: 1600px;    // Largura máxima do container principal
+@largura-card: 495px;       // Largura do card em desktop
+@largura-conteudo: 220px;   // Largura da área de conteúdo
+@altura-card: 412px;        // Altura do card em desktop
+@largura-imagem: 275px;     // Largura da imagem em desktop
+
+/* Dimensões responsivas para Mobile */
+@largura-card-mobile: min(185px, calc(48vw - @espacamento-base));
+@altura-card-mobile: calc(@largura-card-mobile * 1.5);
+@largura-imagem-mobile: @largura-card-mobile;
+
+/* Dimensões responsivas para Tablet */
+@largura-card-tablet: min(400px, calc(49vw - @espacamento-base));
+@altura-card-tablet: calc(@largura-card-tablet * 1.5);
+@largura-imagem-tablet: @largura-card-tablet;
+
+/* Breakpoints para responsividade */
+@mobile: 768px;    // Ponto de quebra para dispositivos móveis
+@tablet: 1024px;   // Ponto de quebra para tablets
+@desktop: 1025px;  // Ponto de quebra para desktop
+
+/* Mixins utilitários */
+// Adiciona sombra suave aos cartões
+.sombra-cartao() {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Trunca texto em uma linha com reticências
+.texto-truncado() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Limita o número de linhas do texto com reticências
+.linha-clamp(@linhas) {
+    display: -webkit-box;
+    -webkit-line-clamp: @linhas;
+    line-clamp: @linhas;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// Adiciona transição suave aos elementos
+.transicao-suave() {
+    transition: all 0.3s ease;
+}
+
+// Centraliza elementos com flexbox
+.centralizar-flex() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Define container padrão responsivo
+.container-padrao() {
+    max-width: @largura-maxima;
+    margin: 0 auto;
+    padding: 0 @espacamento-base;
+}
+
+// Define grid base para layouts
+.grid-base() {
+    display: grid;
+    gap: @espacamento-duplo;
+    padding: @espacamento-duplo;
+    width: 100%;
+    justify-content: center;
+}
+
+// Estilo base para indicadores de progresso
+.indicador-base() {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+// Estilo para mensagens de erro
+.erro() {
+    color: @cor-erro;
+    text-align: center;
+    padding: @espacamento-duplo;
+    width: 100%;
+}
